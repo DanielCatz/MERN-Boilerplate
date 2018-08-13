@@ -1,25 +1,17 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/home';
-import Short from './pages/short';
-import Expired from './pages/expired';
-class App extends Component {
-  render() {
-    return (
-      
-        <Router>
-          <Switch>        
-        <Route exact path='/' component= {Home} />
-        <Route exact path='/home' component= {Home} />
-        <Route exact path='/expired' component= {Expired} />
-        <Route path ='/' component = {Short}/>
-          </Switch>
-        </Router>
-    
-    );
-  }
-}
+import NotFound from './pages/notfound';
+
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/home" component={Home} />
+      <Route exact path="/notfound" component={NotFound} />
+    </Switch>
+  </Router>
+);
 
 export default App;

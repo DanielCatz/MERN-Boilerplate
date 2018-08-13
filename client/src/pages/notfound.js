@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './components/navbar';
 
-class Expired extends Component {
+class NotFound extends Component {
   constructor() {
     super();
     this.state = {
@@ -23,4 +23,4 @@ class Expired extends Component {
   }
 }
 
-export default Expired;
+export default NotFound;
