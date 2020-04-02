@@ -1,45 +1,81 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../assets/navbar.css';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-const Navbar = () => (
-  <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <div className="container">
-      <Link className="navbar-brand" to="/">
-        Daniel Caterson
-      </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarCollapse"
-        aria-controls="navbarCollapse"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon" />
-      </button>
-      <div className="collapse navbar-collapse" id="navbarCollapse">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/">
-              Home <span className="sr-only">(current)</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="https://www.linkedin.com/in/daniel-caterson-8243583a/">
-              LinkedIn
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="https://github.com/DanielCatz/URLShortener">
-              GitHub
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-);
+import '../assets/navbar.css';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+
+const Navbar = props => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const { classes, theme, isBarOpen, closeBar, openBar } = props;
+
+  const toggleBar = () => {
+    if (isBarOpen) closeBar();
+    else openBar();
+  };
+
+  return (
+    <AppBar position="static" className="appBar">
+      <Toolbar className={classes.toolbar}>
+        <Typography variant="h6" className={classes.title}>
+          <Link className={classes.title} to="/home">
+            Home
+          </Link>
+        </Typography>
+        <Typography variant="h6" className={classes.title}>
+          <Link className={classes.title} to="/featured">
+            Featured
+          </Link>
+        </Typography>
+
+        <Typography variant="h6" className={classes.title}>
+          <Link className={classes.title} to="/browseproducts">
+            Browse
+          </Link>
+        </Typography>
+        <Typography variant="h6" className={classes.title}>
+          <Link className={classes.title} to="/about">
+            About
+          </Link>
+        </Typography>
+        <Typography variant="h6" className={classes.title}>
+          <Link className={classes.title} to="/contact">
+            Contact
+          </Link>
+        </Typography>
+        <Typography variant="h6" className={classes.title}>
+          <Link className={classes.title} to="/signin">
+            Sign In
+          </Link>
+        </Typography>
+        <Typography variant="h6" className={classes.title}>
+          <Link className={classes.title} to="/cart">
+            Cart
+          </Link>
+        </Typography>
+
+        <div>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={toggleBar}
+            color="black"
+          >
+            <AccountCircle />
+          </IconButton>
+        </div>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 export default Navbar;

@@ -14,8 +14,8 @@ class NotFound extends Component {
   render() {
     return (
       <div>
-        <Navbar />
         <div className="container">
+          <h1>404</h1>
           <h2>I'm afraid I don't know that one</h2>
         </div>
       </div>

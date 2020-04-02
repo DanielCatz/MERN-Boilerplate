@@ -8,7 +8,7 @@ import cors from 'cors';
 import apiRoutes from './routes/apiroutes';
 
 const app = express();
-
+const router = express.Router();
 // configure the API to use bodyParser and look for JSON data in the request body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

@@ -1,29 +1,48 @@
 // utils.js
 
-const BijectiveHash = {
-  decode: str => {
-    const alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-    const base = alphabet.length;
-    let decoded = 0;
-    while (str) {
-      const index = alphabet.indexOf(str[0]);
-      const power = str.length - 1;
-      decoded += index * Math.pow(base, power);
-      str = str.substring(1);
-    }
-    return decoded;
+const LocalStorageMutator = {
+  getCartFromLocalStorage: () => {
+    const existing = localStorage.getItem('cart');
+    const data = existing || '[]';
+    return JSON.parse(data);
   },
 
-  encode: num => {
-    const alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-    const base = alphabet.length;
-    let encoded = '';
-    while (num) {
-      const remainder = num % base;
-      num = Math.floor(num / base);
-      encoded = alphabet[remainder].toString() + encoded;
+  addProductToCartLocalStorage: product => {
+    let cart = LocalStorageMutator.getCartFromLocalStorage();
+
+    const { name, price, slug, images } = product;
+
+    const entryIndex = cart.findIndex(x => x.key === product.slug);
+
+    if (entryIndex >= 0) {
+      cart[entryIndex].quantity += 1;
+    } else {
+      const item = {
+        key: slug,
+        name,
+        price,
+        quantity: 1,
+        slug,
+        images
+      };
+      cart = [...cart, item];
     }
-    return encoded;
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+  },
+
+  removeProductFromCartLocalStorage: product => {
+    const cart = LocalStorageMutator.getCartFromLocalStorage();
+
+    const entryIndex = cart.findIndex(x => x.key === product.slug);
+
+    if (entryIndex !== -1 && cart[entryIndex].quantity >= 2) {
+      cart[entryIndex].quantity -= 1;
+    } else {
+      cart.splice(entryIndex, 1);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 };
-export default BijectiveHash;
+export default LocalStorageMutator;
